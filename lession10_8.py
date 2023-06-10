@@ -12,7 +12,7 @@ else:
     print(f"連線失敗:{response.status_code}")
 
 
-
+#將Youbike資料轉成dataframe
 dataFrame = pd.DataFrame(data=all_data,columns=['sna','tot','sbi','sarea','mday','ar','bemp','act'])
 
 dataFrame.columns = ["站點名稱","車數","可借","行政區","時間","地址","可還","狀態"]
@@ -30,4 +30,7 @@ st.dataframe(mask_dataFrame)
 
 option = st.selectbox('行政區域',areas)
 
-st.write('You selected:', option)
+mask = dataFrame1['行政區'] == option
+dataFrame2 = dataFrame1[mask]
+
+st.write(option,":",len(dataFrame2.index))
